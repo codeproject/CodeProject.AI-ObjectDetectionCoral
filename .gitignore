@@ -1,0 +1,4 @@
+assets/
+bin/
+edgetpu_runtime/
+.DS_Store
