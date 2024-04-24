@@ -99,7 +99,8 @@ def init_detect(options: Options) -> str:
         if os.path.exists(options.model_tpu_file):
             interpreter = make_interpreter(options.model_tpu_file, device=None, delegate=None)
         if not interpreter:
-            device      = "CPU"
+            print("Info: Unable to use TPU (make_interpreter faileD). Falling back to CPU")
+            device = "CPU"
             if os.path.exists(options.model_cpu_file):
                 interpreter = make_interpreter(options.model_cpu_file, device="cpu", delegate=None)
             else:
@@ -165,10 +166,12 @@ def list_models(options:Options):
             for model_name in supported_models:
                 model_index = model_name.lower()
                 pattern     = options.MODEL_SETTINGS[model_index][options.model_size].model_name_pattern
-                for file in os.listdir(options.models_dir):
-                    if fnmatch.fnmatch(file, '*' + pattern + '*'):
-                        model_list.append(model_name)
-                        break
+                if os.path.exists(options.models_dir):
+                    for file in os.listdir(options.models_dir):
+                        if fnmatch.fnmatch(file, '*' + pattern + '*'):
+                            model_list.append(model_name)
+                            break
+
 
     return {
         "success": True,
