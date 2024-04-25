@@ -2,3 +2,4 @@ assets/
 bin/
 edgetpu_runtime/
 .DS_Store
+__pycache__
