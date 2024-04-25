@@ -1,7 +1,5 @@
 #! Python3.8
 
-codeproject-ai-sdk            # Installing the CodeProject.AI SDK
-
 # For Coral, we need Tensorflow (preferably TF-Lite) and the Coral library. The
 # last pre-built TF-Lite for macOS that supports Coral is for macOS 11 on Intel,
 # or macOS 12 on Apple silicon. However, TensorFlow does include TF-Lite (it's
@@ -27,5 +25,7 @@ codeproject-ai-sdk            # Installing the CodeProject.AI SDK
 
 numpy>=1.16.0                 # Installing NumPy, the fundamental package for array computing with Python.
 Pillow>=4.0.0,<10.0           # Installing Pillow, a Python Image Library
+
+codeproject-ai-sdk            # Installing the CodeProject.AI SDK
 
 # last line empty

@@ -1,7 +1,5 @@
 #! Python3.8
 
-codeproject-ai-sdk            # Installing the CodeProject.AI SDK
-
 # Pillow-SIMD>=4.0.0          # Installing Pillow (SIMD), an optimised Python Image Library
 Pillow>=4.0.0                 # Installing Pillow, a Python Image Library
 
@@ -22,5 +20,7 @@ pycoral~=2.0                  # Installing PyCoral
 
 # Coral example has numpy>=1.16.0, but this works
 numpy==1.21.6                 # Installing NumPy, a package for scientific computing
+
+codeproject-ai-sdk            # Installing the CodeProject.AI SDK
 
 # last line empty

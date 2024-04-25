@@ -17,7 +17,7 @@ This is an ObjectDetection module using the Google Coral.AI TPU for [CodeProject
          - src
          - ... etc
       - CodeProject.AI-Modules
-         - ObjectDetectionCoral
+         - CodeProject.AI-ObjectDetectionCoral
          (this repo)
     ```
 

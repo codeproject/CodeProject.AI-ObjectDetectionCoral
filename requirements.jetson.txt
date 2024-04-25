@@ -1,7 +1,5 @@
 #! Python3.8
 
-codeproject-ai-sdk            # Installing the CodeProject.AI SDK
-
 --extra-index-url https://google-coral.github.io/py-repo/ 
 tflite-runtime==2.5.0.post1   # Installing Tensorflow Lite
 --extra-index-url https://google-coral.github.io/py-repo/ 
@@ -9,5 +7,7 @@ pycoral~=2.0                  # Installing PyCoral
 
 numpy>=1.16.0                 # Installing NumPy, the fundamental package for array computing with Python.
 Pillow>=4.0.0                 # Installing Pillow, a Python Image Library
+
+codeproject-ai-sdk            # Installing the CodeProject.AI SDK
 
 # last line empty
