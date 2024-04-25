@@ -3,9 +3,8 @@ import os
 import sys
 import time
 
-from codeproject_ai_sdk.common        import JSON
-from codeproject_ai_sdk.request_data  import RequestData
-from codeproject_ai_sdk.module_runner import ModuleRunner
+# Import CodeProject.AI SDK
+from codeproject_ai_sdk import RequestData, ModuleRunner, JSON
 
 # Import the method of the module we're wrapping
 from options import Options

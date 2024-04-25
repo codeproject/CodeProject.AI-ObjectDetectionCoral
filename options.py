@@ -1,14 +1,8 @@
 import os
 import platform
 
-try:
-    from module_options import ModuleOptions
-except ImportError:
-    print("Unable to import ModuleOptions, running with defaults")
-    class ModuleOptions:
-        module_path = '.'
-        def getEnvVariable(a, b):
-            return b
+# Import CodeProject.AI SDK
+from codeproject_ai_sdk import ModuleOptions
 
 class Settings:
     def __init__(self, model_name: str, model_name_pattern: str, std_model_name: str, 
