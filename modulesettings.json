@@ -3,7 +3,7 @@
 
     "ObjectDetectionCoral": {
       "Name": "Object Detection (Coral)",
-      "Version": "2.2.2",
+      "Version": "2.3.0",
       
       "PublishingInfo" : {
         "Description": "The object detection module uses the Coral TPU to locate and classify the objects the models have been trained on.",
@@ -83,7 +83,8 @@
           { "ModuleVersion": "2.1.6", "ServerVersionRange": [ "2.5.2", "2.6.0"  ], "ReleaseDate": "2024-03-12", "ReleaseNotes": "Improvements to Multi-TPU error handling, added YOLOv5 models." },
           { "ModuleVersion": "2.2.0", "ServerVersionRange": [ "2.6.1", ""       ], "ReleaseDate": "2024-04-01", "ReleaseNotes": "Improvements to pipelining and error handling" },
           { "ModuleVersion": "2.2.1", "ServerVersionRange": [ "2.6.1", ""       ], "ReleaseDate": "2024-04-01", "ReleaseNotes": "Improvements" },
-          { "ModuleVersion": "2.2.2", "ServerVersionRange": [ "2.6.1", ""       ], "ReleaseDate": "2024-04-15", "ReleaseNotes": "Corrections to macOS 11/12 install, plus custom model list command added" }
+          { "ModuleVersion": "2.2.2", "ServerVersionRange": [ "2.6.1", ""       ], "ReleaseDate": "2024-04-15", "ReleaseNotes": "Corrections to macOS 11/12 install, plus custom model list command added" },
+          { "ModuleVersion": "2.3.0", "ServerVersionRange": [ "2.6.5", ""       ], "ReleaseDate": "2024-04-15", "ReleaseNotes": "Switched to CodeProject.AI 2.6.5 / CodeProject SDK" }
         ],
         "DownloadableModels":[
 

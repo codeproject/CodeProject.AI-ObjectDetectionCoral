@@ -3,16 +3,9 @@ import os
 import sys
 import time
 
-# Import the CodeProject.AI SDK. This will add to the PATH var for future imports
-sys.path.append("../../SDK/Python")
-if os.path.exists("../../CodeProject.AI-Server/SDK/Python"):
-    sys.path.append("../../CodeProject.AI-Server/SDK/Python")
-if os.path.exists("../../CodeProject.AI-Server-Private/src/SDK/Python"):
-    sys.path.append("../../CodeProject.AI-Server-Private/src/SDK/Python")
-
-from common import JSON
-from request_data import RequestData
-from module_runner import ModuleRunner
+from codeproject_ai_sdk.common        import JSON
+from codeproject_ai_sdk.request_data  import RequestData
+from codeproject_ai_sdk.module_runner import ModuleRunner
 
 # Import the method of the module we're wrapping
 from options import Options

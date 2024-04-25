@@ -1,5 +1,7 @@
 #! Python3.8
 
+codeproject-ai-sdk            # Installing the CodeProject.AI SDK
+
 # For Coral, we need Tensorflow (preferably TF-Lite) and the Coral library. The
 # last pre-built TF-Lite for macOS that supports Coral is for macOS 11 on Intel,
 # or macOS 12 on Apple silicon. However, TensorFlow does include TF-Lite (it's
@@ -16,14 +18,14 @@
 # We don't install tensorflow here: we install it in the install.sh to set the 
 # library version correctly
 
-# tensorflow            # Installing Tensorflow, the open source machine learning framework for everyone
+# tensorflow                  # Installing Tensorflow, the open source machine learning framework for everyone
 
 # --extra-index-url https://google-coral.github.io/py-repo/ 
 # tflite-runtime==2.5.0.post1 # Installing Tensorflow Lite
 # --extra-index-url https://google-coral.github.io/py-repo/ 
-# pycoral~=2.0          # Installing PyCoral
+# pycoral~=2.0                # Installing PyCoral
 
-numpy>=1.16.0           # Installing NumPy, the fundamental package for array computing with Python.
-Pillow>=4.0.0,<10.0     # Installing Pillow, a Python Image Library
+numpy>=1.16.0                 # Installing NumPy, the fundamental package for array computing with Python.
+Pillow>=4.0.0,<10.0           # Installing Pillow, a Python Image Library
 
 # last line empty

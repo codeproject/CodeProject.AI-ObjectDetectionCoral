@@ -6,7 +6,7 @@
 #
 # This script is called from the ObjectDetectionCoral directory using: 
 #
-#    bash ../../setup.sh
+#    bash ../../CodeProject.AI-Server/src/setup.sh
 #
 # The setup.sh script will find this install.sh file and execute it.
 #
