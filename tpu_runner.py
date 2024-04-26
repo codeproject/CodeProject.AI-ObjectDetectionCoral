@@ -794,6 +794,7 @@ class TPURunner(object):
     def pipeline_ok(self) -> bool:
         """ Check we have valid interpreters """
         with self.runner_lock:
+            self._periodic_check(options)
             return bool(self.pipe and any(self.pipe.interpreters))
 
     def process_image(self,
