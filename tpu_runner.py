@@ -536,7 +536,9 @@ class TPURunner(object):
                 time.time() - self.watchdog_time > self.max_idle_secs_before_recycle:
                 logging.info("No work in {} seconds, watchdog shutting down TPUs.".format(self.max_idle_secs_before_recycle))
                 self.runner_lock.acquire(timeout=MAX_WAIT_TIME)
-                self.pipe.delete()
+                if self.pipe.first_name is not None:
+                    # Avoid possible race condition.
+                    self.pipe.delete()
                 self.runner_lock.release()
                 # Pipeline will reinitialize itself as needed
             time.sleep(self.watchdog_idle_secs)
