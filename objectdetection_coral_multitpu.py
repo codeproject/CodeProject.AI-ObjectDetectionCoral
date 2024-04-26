@@ -74,8 +74,6 @@ def list_models(options:Options):
     
     # HACK: If we can't get the TPU interpreter created then let's fall back to
     #       the non-edge library TPU / TFLite-CPU code
-    # HACK: We could call _tpu_runner._periodic_check() at this point to ensure
-    #       we have interpreters, but they were created in init we should be good
     if not _tpu_runner or not _tpu_runner.pipeline_ok():
         logging.warning("No multi-TPU interpreters: Falling back to single-TPU/CPU listing")
         import objectdetection_coral_singletpu as odcs
