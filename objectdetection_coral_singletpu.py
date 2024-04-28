@@ -123,7 +123,9 @@ def init_detect(options: Options) -> str:
         except Exception as ex:
             error = "Error creating interpreter (Coral issue)"
             print("Error creating interpreter: " + str(ex))
-            interpreter = None
+            try:
+                interpreter = None
+            except: pass
 
     if not interpreter:
         device = ""
