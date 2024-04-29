@@ -20,18 +20,18 @@ REM See also: https://python-pillow.org/pillow-perf/
 REM    THIS FAILS CATASTROPHICALLY. 
 REM    
 REM    REM Uninstall current Pillow and try installing Pillow-SIMD
-REM    call "!sdkScriptsDirPath!\utils.bat" WriteLine "Upgrading PIP. Again..." "!color_info!"
+REM    call "!utilsScript!" WriteLine "Upgrading PIP. Again..." "!color_info!"
 REM    "!venvPythonCmdPath!" -m pip install -U --force-reinstall pip
 REM    
-REM    call "!sdkScriptsDirPath!\utils.bat" WriteLine "Uninstalling Pillow..." "!color_info!"
+REM    call "!utilsScript!" WriteLine "Uninstalling Pillow..." "!color_info!"
 REM    "!venvPythonCmdPath!" -m pip uninstall --yes pillow >NUL
 REM    
-REM    call "!sdkScriptsDirPath!\utils.bat" WriteLine "Installing Pillow-SIMD..." "!color_info!"
+REM    call "!utilsScript!" WriteLine "Installing Pillow-SIMD..." "!color_info!"
 REM    "!venvPythonCmdPath!" -m pip install pillow-simd >NUL
 REM    
 REM    REM If that didn't work, undo what we did and put back Pillow
 REM    if errorlevel 1 (
-REM        call "!sdkScriptsDirPath!\utils.bat" WriteLine "Pillow-SIMD install failed. Restoring Pillow..." "!color_warn!"
+REM        call "!utilsScript!" WriteLine "Pillow-SIMD install failed. Restoring Pillow..." "!color_warn!"
 REM        "!venvPythonCmdPath!" -m pip uninstall --yes pillow-simd >NUL
 REM        "!venvPythonCmdPath!" -m pip install Pillow>=4.0.0 >NUL
 REM    }
