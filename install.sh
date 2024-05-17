@@ -33,7 +33,7 @@ if [ "$2" = "max" ]; then tpu_speed="max"; fi
 checkForAdminRights
 
 if [ "${edgeDevice}" = "Raspberry Pi" ] || [ "${edgeDevice}" = "Orange Pi" ] || \
-   [ "${edgeDevice}" = "Jetson" ]; then
+   [ "${systemName}" = "Radxa ROCK" ]   || [ "${edgeDevice}" = "Jetson" ]; then
 
     if [ "$isAdmin" = false ]; then
     

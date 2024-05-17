@@ -125,7 +125,9 @@ def init_detect(options: Options) -> str:
             print("Error creating interpreter: " + str(ex))
             try:
                 interpreter = None
-            except: pass
+            except: 
+                # __del__ can throw here.
+                pass
 
     if not interpreter:
         device = ""
