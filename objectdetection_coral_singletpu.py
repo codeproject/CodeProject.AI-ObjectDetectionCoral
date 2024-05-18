@@ -47,6 +47,18 @@ import time
 import numpy as np
 from PIL import Image
 
+# Make sure we can find the coral libraries
+import platform
+if platform.system() == "Darwin": # or platform.system() == "Linux"
+    search_path = ''
+    if platform.uname()[4] == 'x86_64' and platform.release()[:2] != '20':   # macOS 11 / Big Sur on Intel can install pycoral PIP
+       search_path = f"./pycoral_simplified/"    # macOS will use the simplified library
+    elif platform.uname()[4] == 'arm64' and platform.release()[:2] != '21':  # macOS 12 / Monterey on arm64 can install pycoral PIP
+       search_path = f"./pycoral_simplified/"    # macOS will use the simplified library
+    if search_path:
+        import sys
+        sys.path.insert(0, search_path)
+
 from pycoral.adapters import common
 from pycoral.adapters import detect
 from pycoral.utils.dataset import read_label_file
