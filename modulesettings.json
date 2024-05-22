@@ -140,7 +140,7 @@
 
       "RouteMaps": [
         {
-          "Name": "Object Detector",
+          "Name": "Object Detector (Coral.AI)",
           "Route": "vision/detection",
           "Method": "POST",
           "Command": "detect",
@@ -200,7 +200,7 @@
         },
 
         {
-          "Name": "Custom Object Detector (Coral)",
+          "Name": "Custom Object Detector (Coral.AI)",
           "Route": "vision/custom",
           "Method": "POST",
           "Command": "custom",
@@ -252,7 +252,7 @@
         },
 
         {
-          "Name": "Object Detector List Custom Models (Coral)",
+          "Name": "Object Detector List Custom Models (Coral.AI)",
           "Route": "vision/custom/list",
           "Method": "POST",
           "Command": "list-custom",
