@@ -532,11 +532,12 @@ class TPURunner(object):
     def _watchdog(self):
         self.watchdog_time = time.time()
         while not self.watchdog_shutdown:
-            if self.pipe and self.pipe.first_name is None and \
+            if self.pipe and self.pipe.first_name is not None and \
                 time.time() - self.watchdog_time > self.max_idle_secs_before_recycle:
-                logging.warning("No work in {} seconds, watchdog shutting down TPUs.".format(self.max_idle_secs_before_recycle))
+                logging.info("No work in {} seconds, watchdog shutting down TPUs.".format(self.max_idle_secs_before_recycle))
                 self.runner_lock.acquire(timeout=MAX_WAIT_TIME)
-                if self.pipe:
+                if self.pipe is not None:
+                    # Avoid possible race condition.
                     self.pipe.delete()
                 self.runner_lock.release()
                 # Pipeline will reinitialize itself as needed
@@ -794,6 +795,7 @@ class TPURunner(object):
     def pipeline_ok(self) -> bool:
         """ Check we have valid interpreters """
         with self.runner_lock:
+            self._periodic_check(options)
             return bool(self.pipe and any(self.pipe.interpreters))
 
     def process_image(self,
