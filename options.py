@@ -14,137 +14,145 @@ class Settings:
         self.labels_name        = labels_name
 
         self.MODEL_SEGMENTS = {
-            'tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq': {
-                 #  104.2 ms per inference
+                 'tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq': {
+                 #  176.2 ms per inference (5.7 FPS) for 1 TPUs using 1 segment
+                 #   97.8 ms per inference (10.2 FPS) for 2 TPUs using 2 segments
+                 #   66.2 ms per inference (15.1 FPS) for 3 TPUs using 2 segments
+                 #   48.8 ms per inference (20.5 FPS) for 4 TPUs using 1 segment
+                 #   37.4 ms per inference (26.8 FPS) for 5 TPUs using 2 segments
                  2: ['all_segments_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_0_of_2_edgetpu.tflite', 'all_segments_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_1_of_2_edgetpu.tflite'],
-                 #   67.5 ms per inference
-                 3: ['all_segments_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_0_of_3_edgetpu.tflite', 'all_segments_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_1_of_3_edgetpu.tflite', 'all_segments_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_2_of_3_edgetpu.tflite'],
-                 #   49.1 ms per inference
-                 4: ['all_segments_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_0_of_2_edgetpu.tflite', 'all_segments_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_1_of_2_edgetpu.tflite'],
-                 #   43.5 ms per inference
-                 5: ['all_segments_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_0_of_3_edgetpu.tflite', 'all_segments_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_1_of_3_edgetpu.tflite', 'all_segments_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_2_of_3_edgetpu.tflite'],
-                 #   37.0 ms per inference
-                 6: ['all_segments_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_0_of_3_edgetpu.tflite', 'all_segments_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_1_of_3_edgetpu.tflite', 'all_segments_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_2_of_3_edgetpu.tflite'],
-                 #   31.1 ms per inference
-                 7: ['all_segments_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_0_of_2_edgetpu.tflite', 'all_segments_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_1_of_2_edgetpu.tflite'],
-                 #   27.1 ms per inference
-                 8: ['all_segments_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_0_of_3_edgetpu.tflite', 'all_segments_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_1_of_3_edgetpu.tflite', 'all_segments_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_2_of_3_edgetpu.tflite'],
+                 3: ['dumb_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_0_of_2_edgetpu.tflite', 'dumb_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_1_of_2_edgetpu.tflite'],
+                 5: ['2x_last_seg_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_0_of_2_edgetpu.tflite', '2x_last_seg_tf2_ssd_mobilenet_v1_fpn_640x640_coco17_ptq_segment_1_of_2_edgetpu.tflite'],
              },
              'efficientdet_lite2_448_ptq': {
-                 #   32.1 ms per inference
-                 2: ['all_segments_efficientdet_lite2_448_ptq_segment_0_of_2_edgetpu.tflite', 'all_segments_efficientdet_lite2_448_ptq_segment_1_of_2_edgetpu.tflite'],
-                 #   19.5 ms per inference
-                 3: ['166x_first_seg_efficientdet_lite2_448_ptq_segment_0_of_2_edgetpu.tflite', '166x_first_seg_efficientdet_lite2_448_ptq_segment_1_of_2_edgetpu.tflite'],
-                 #   16.5 ms per inference
-                 4: ['15x_first_seg_efficientdet_lite2_448_ptq_segment_0_of_3_edgetpu.tflite', '15x_first_seg_efficientdet_lite2_448_ptq_segment_1_of_3_edgetpu.tflite', '15x_first_seg_efficientdet_lite2_448_ptq_segment_2_of_3_edgetpu.tflite'],
-                 #   13.6 ms per inference
-                 5: ['15x_first_seg_efficientdet_lite2_448_ptq_segment_0_of_2_edgetpu.tflite', '15x_first_seg_efficientdet_lite2_448_ptq_segment_1_of_2_edgetpu.tflite'],
-                 #   11.5 ms per inference
-                 7: ['166x_first_seg_efficientdet_lite2_448_ptq_segment_0_of_2_edgetpu.tflite', '166x_first_seg_efficientdet_lite2_448_ptq_segment_1_of_2_edgetpu.tflite'],
-                 #   11.3 ms per inference
-                 8: ['15x_first_seg_efficientdet_lite2_448_ptq_segment_0_of_2_edgetpu.tflite', '15x_first_seg_efficientdet_lite2_448_ptq_segment_1_of_2_edgetpu.tflite'],
+                 #   60.0 ms per inference (16.7 FPS) for 1 TPUs using 1 segment
+                 #   30.6 ms per inference (32.7 FPS) for 2 TPUs using 1 segment
+                 #   20.4 ms per inference (49.1 FPS) for 3 TPUs using 2 segments
+                 #   17.4 ms per inference (57.4 FPS) for 4 TPUs using 2 segments
+                 #   14.5 ms per inference (68.8 FPS) for 5 TPUs using 2 segments
+                 3: ['2x_last_seg_efficientdet_lite2_448_ptq_segment_0_of_2_edgetpu.tflite', '2x_last_seg_efficientdet_lite2_448_ptq_segment_1_of_2_edgetpu.tflite'],
+                 4: ['all_segments_efficientdet_lite2_448_ptq_segment_0_of_2_edgetpu.tflite', 'all_segments_efficientdet_lite2_448_ptq_segment_1_of_2_edgetpu.tflite'],
+                 5: ['166x_first_seg_efficientdet_lite2_448_ptq_segment_0_of_2_edgetpu.tflite', '166x_first_seg_efficientdet_lite2_448_ptq_segment_1_of_2_edgetpu.tflite'],
              },
              'efficientdet_lite3_512_ptq': {
-                 #   20.9 ms per inference
-                 4: ['15x_last_seg_efficientdet_lite3_512_ptq_segment_0_of_2_edgetpu.tflite', '15x_last_seg_efficientdet_lite3_512_ptq_segment_1_of_2_edgetpu.tflite'],
+                 #   75.7 ms per inference (13.2 FPS) for 1 TPUs using 1 segment
+                 #   38.1 ms per inference (26.2 FPS) for 2 TPUs using 1 segment
+                 #   26.8 ms per inference (37.3 FPS) for 3 TPUs using 1 segment
+                 #   20.7 ms per inference (48.4 FPS) for 4 TPUs using 1 segment
+                 #   18.0 ms per inference (55.5 FPS) for 5 TPUs using 1 segment
              },
              'efficientdet_lite3x_640_ptq': {
-                 #   95.0 ms per inference
-                 2: ['all_segments_efficientdet_lite3x_640_ptq_segment_0_of_2_edgetpu.tflite', 'all_segments_efficientdet_lite3x_640_ptq_segment_1_of_2_edgetpu.tflite'],
-                 #   70.6 ms per inference
-                 3: ['all_segments_efficientdet_lite3x_640_ptq_segment_0_of_3_edgetpu.tflite', 'all_segments_efficientdet_lite3x_640_ptq_segment_1_of_3_edgetpu.tflite', 'all_segments_efficientdet_lite3x_640_ptq_segment_2_of_3_edgetpu.tflite'],
-                 #   47.9 ms per inference
-                 4: ['2x_first_seg_efficientdet_lite3x_640_ptq_segment_0_of_3_edgetpu.tflite', '2x_first_seg_efficientdet_lite3x_640_ptq_segment_1_of_3_edgetpu.tflite', '2x_first_seg_efficientdet_lite3x_640_ptq_segment_2_of_3_edgetpu.tflite'],
-                 #   38.7 ms per inference
+                 #  181.6 ms per inference (5.5 FPS) for 1 TPUs using 1 segment
+                 #   91.5 ms per inference (10.9 FPS) for 2 TPUs using 1 segment
+                 #   62.9 ms per inference (15.9 FPS) for 3 TPUs using 2 segments
+                 #   49.6 ms per inference (20.2 FPS) for 4 TPUs using 1 segment
+                 #   40.4 ms per inference (24.7 FPS) for 5 TPUs using 2 segments
+                 3: ['2x_last_seg_efficientdet_lite3x_640_ptq_segment_0_of_2_edgetpu.tflite', '2x_last_seg_efficientdet_lite3x_640_ptq_segment_1_of_2_edgetpu.tflite'],
                  5: ['15x_first_seg_efficientdet_lite3x_640_ptq_segment_0_of_2_edgetpu.tflite', '15x_first_seg_efficientdet_lite3x_640_ptq_segment_1_of_2_edgetpu.tflite'],
-                 #   35.1 ms per inference
-                 6: ['all_segments_efficientdet_lite3x_640_ptq_segment_0_of_2_edgetpu.tflite', 'all_segments_efficientdet_lite3x_640_ptq_segment_1_of_2_edgetpu.tflite'],
-                 #   30.6 ms per inference
-                 7: ['all_segments_efficientdet_lite3x_640_ptq_segment_0_of_2_edgetpu.tflite', 'all_segments_efficientdet_lite3x_640_ptq_segment_1_of_2_edgetpu.tflite'],
-                 #   27.3 ms per inference
-                 8: ['all_segments_efficientdet_lite3x_640_ptq_segment_0_of_2_edgetpu.tflite', 'all_segments_efficientdet_lite3x_640_ptq_segment_1_of_2_edgetpu.tflite'],
+             },
+             'yolov5s-int8': {
+                 #   36.4 ms per inference (27.5 FPS) for 1 TPUs using 1 segment
+                 #   18.9 ms per inference (53.0 FPS) for 2 TPUs using 1 segment
+                 #   14.4 ms per inference (69.7 FPS) for 3 TPUs using 1 segment
+                 #   11.7 ms per inference (85.4 FPS) for 4 TPUs using 1 segment
+                 #   10.8 ms per inference (92.6 FPS) for 5 TPUs using 1 segment
              },
              'yolov5m-int8': {
-                 #   56.3 ms per inference
-                 2: ['all_segments_yolov5m-int8_segment_0_of_2_edgetpu.tflite', 'all_segments_yolov5m-int8_segment_1_of_2_edgetpu.tflite'],
-                 #   32.2 ms per inference
+                 #  100.3 ms per inference (10.0 FPS) for 1 TPUs using 1 segment
+                 #   50.5 ms per inference (19.8 FPS) for 2 TPUs using 1 segment
+                 #   31.7 ms per inference (31.5 FPS) for 3 TPUs using 2 segments
+                 #   26.0 ms per inference (38.5 FPS) for 4 TPUs using 2 segments
+                 #   20.1 ms per inference (49.9 FPS) for 5 TPUs using 2 segments
                  3: ['15x_first_seg_yolov5m-int8_segment_0_of_2_edgetpu.tflite', '15x_first_seg_yolov5m-int8_segment_1_of_2_edgetpu.tflite'],
-                 #   25.9 ms per inference
-                 4: ['2x_last_seg_yolov5m-int8_segment_0_of_4_edgetpu.tflite', '2x_last_seg_yolov5m-int8_segment_1_of_4_edgetpu.tflite', '2x_last_seg_yolov5m-int8_segment_2_of_4_edgetpu.tflite', '2x_last_seg_yolov5m-int8_segment_3_of_4_edgetpu.tflite'],
-                 #   21.2 ms per inference
-                 5: ['all_segments_yolov5m-int8_segment_0_of_2_edgetpu.tflite', 'all_segments_yolov5m-int8_segment_1_of_2_edgetpu.tflite'],
-                 #   18.8 ms per inference
-                 6: ['15x_last_seg_yolov5m-int8_segment_0_of_3_edgetpu.tflite', '15x_last_seg_yolov5m-int8_segment_1_of_3_edgetpu.tflite', '15x_last_seg_yolov5m-int8_segment_2_of_3_edgetpu.tflite'],
-                 #   14.7 ms per inference
-                 7: ['all_segments_yolov5m-int8_segment_0_of_4_edgetpu.tflite', 'all_segments_yolov5m-int8_segment_1_of_4_edgetpu.tflite', 'all_segments_yolov5m-int8_segment_2_of_4_edgetpu.tflite', 'all_segments_yolov5m-int8_segment_3_of_4_edgetpu.tflite'],
-                 #   14.6 ms per inference
-                 8: ['all_segments_yolov5m-int8_segment_0_of_3_edgetpu.tflite', 'all_segments_yolov5m-int8_segment_1_of_3_edgetpu.tflite', 'all_segments_yolov5m-int8_segment_2_of_3_edgetpu.tflite'],
+                 4: ['4x_first_seg_yolov5m-int8_segment_0_of_2_edgetpu.tflite', '4x_first_seg_yolov5m-int8_segment_1_of_2_edgetpu.tflite'],
+                 5: ['4x_first_seg_yolov5m-int8_segment_0_of_2_edgetpu.tflite', '4x_first_seg_yolov5m-int8_segment_1_of_2_edgetpu.tflite'],
              },
              'yolov5l-int8': {
-                 #   61.1 ms per inference
-                 3: ['all_segments_yolov5l-int8_segment_0_of_3_edgetpu.tflite', 'all_segments_yolov5l-int8_segment_1_of_3_edgetpu.tflite', 'all_segments_yolov5l-int8_segment_2_of_3_edgetpu.tflite'],
-                 #   48.0 ms per inference
-                 4: ['all_segments_yolov5l-int8_segment_0_of_4_edgetpu.tflite', 'all_segments_yolov5l-int8_segment_1_of_4_edgetpu.tflite', 'all_segments_yolov5l-int8_segment_2_of_4_edgetpu.tflite', 'all_segments_yolov5l-int8_segment_3_of_4_edgetpu.tflite'],
-                 #   39.0 ms per inference
-                 5: ['all_segments_yolov5l-int8_segment_0_of_5_edgetpu.tflite', 'all_segments_yolov5l-int8_segment_1_of_5_edgetpu.tflite', 'all_segments_yolov5l-int8_segment_2_of_5_edgetpu.tflite', 'all_segments_yolov5l-int8_segment_3_of_5_edgetpu.tflite', 'all_segments_yolov5l-int8_segment_4_of_5_edgetpu.tflite'],
-                 #   31.5 ms per inference
-                 6: ['all_segments_yolov5l-int8_segment_0_of_3_edgetpu.tflite', 'all_segments_yolov5l-int8_segment_1_of_3_edgetpu.tflite', 'all_segments_yolov5l-int8_segment_2_of_3_edgetpu.tflite'],
-                 #   26.7 ms per inference
-                 7: ['dumb_yolov5l-int8_segment_0_of_6_edgetpu.tflite', 'dumb_yolov5l-int8_segment_1_of_6_edgetpu.tflite', 'dumb_yolov5l-int8_segment_2_of_6_edgetpu.tflite', 'dumb_yolov5l-int8_segment_3_of_6_edgetpu.tflite', 'dumb_yolov5l-int8_segment_4_of_6_edgetpu.tflite', 'dumb_yolov5l-int8_segment_5_of_6_edgetpu.tflite'],
-                 #   24.4 ms per inference
-                 8: ['all_segments_yolov5l-int8_segment_0_of_4_edgetpu.tflite', 'all_segments_yolov5l-int8_segment_1_of_4_edgetpu.tflite', 'all_segments_yolov5l-int8_segment_2_of_4_edgetpu.tflite', 'all_segments_yolov5l-int8_segment_3_of_4_edgetpu.tflite'],
+                 #  182.8 ms per inference (5.5 FPS) for 1 TPUs using 1 segment
+                 #   85.6 ms per inference (11.7 FPS) for 2 TPUs using 2 segments
+                 #   56.5 ms per inference (17.7 FPS) for 3 TPUs using 2 segments
+                 #   43.8 ms per inference (22.8 FPS) for 4 TPUs using 2 segments
+                 #   34.0 ms per inference (29.4 FPS) for 5 TPUs using 3 segments
+                 2: ['dumb_yolov5l-int8_segment_0_of_2_edgetpu.tflite', 'dumb_yolov5l-int8_segment_1_of_2_edgetpu.tflite'],
+                 3: ['2x_last_seg_yolov5l-int8_segment_0_of_2_edgetpu.tflite', '2x_last_seg_yolov5l-int8_segment_1_of_2_edgetpu.tflite'],
+                 4: ['dumb_yolov5l-int8_segment_0_of_2_edgetpu.tflite', 'dumb_yolov5l-int8_segment_1_of_2_edgetpu.tflite'],
+                 5: ['3x_first_seg_yolov5l-int8_segment_0_of_3_edgetpu.tflite', '3x_first_seg_yolov5l-int8_segment_1_of_3_edgetpu.tflite', '3x_first_seg_yolov5l-int8_segment_2_of_3_edgetpu.tflite'],
              },
              'yolov8s_416_640px': {
-                 #   25.6 ms per inference
-                 3: ['166x_first_seg_yolov8s_416_640px_segment_0_of_2_edgetpu.tflite', '166x_first_seg_yolov8s_416_640px_segment_1_of_2_edgetpu.tflite'],
+                 #   67.5 ms per inference (14.8 FPS) for 1 TPUs using 1 segment
+                 #   34.5 ms per inference (29.0 FPS) for 2 TPUs using 1 segment
+                 #   22.8 ms per inference (43.8 FPS) for 3 TPUs using 1 segment
+                 #   17.0 ms per inference (58.9 FPS) for 4 TPUs using 2 segments
+                 #   13.1 ms per inference (76.1 FPS) for 5 TPUs using 2 segments
+                 4: ['3x_first_seg_yolov8s_416_640px_segment_0_of_2_edgetpu.tflite', '3x_first_seg_yolov8s_416_640px_segment_1_of_2_edgetpu.tflite'],
+                 5: ['3x_first_seg_yolov8s_416_640px_segment_0_of_2_edgetpu.tflite', '3x_first_seg_yolov8s_416_640px_segment_1_of_2_edgetpu.tflite'],
              },
              'yolov8m_416_640px': {
-                 #  114.4 ms per inference
+                 #  272.3 ms per inference (3.7 FPS) for 1 TPUs using 1 segment
+                 #   95.6 ms per inference (10.5 FPS) for 2 TPUs using 2 segments
+                 #   59.5 ms per inference (16.8 FPS) for 3 TPUs using 3 segments
+                 #   43.8 ms per inference (22.8 FPS) for 4 TPUs using 2 segments
+                 #   35.5 ms per inference (28.2 FPS) for 5 TPUs using 2 segments
                  2: ['all_segments_yolov8m_416_640px_segment_0_of_2_edgetpu.tflite', 'all_segments_yolov8m_416_640px_segment_1_of_2_edgetpu.tflite'],
-                 #   71.9 ms per inference
                  3: ['all_segments_yolov8m_416_640px_segment_0_of_3_edgetpu.tflite', 'all_segments_yolov8m_416_640px_segment_1_of_3_edgetpu.tflite', 'all_segments_yolov8m_416_640px_segment_2_of_3_edgetpu.tflite'],
-                 #   53.0 ms per inference
-                 4: ['2x_first_seg_yolov8m_416_640px_segment_0_of_3_edgetpu.tflite', '2x_first_seg_yolov8m_416_640px_segment_1_of_3_edgetpu.tflite', '2x_first_seg_yolov8m_416_640px_segment_2_of_3_edgetpu.tflite'],
-                 #   43.5 ms per inference
-                 5: ['166x_first_seg_yolov8m_416_640px_segment_0_of_4_edgetpu.tflite', '166x_first_seg_yolov8m_416_640px_segment_1_of_4_edgetpu.tflite', '166x_first_seg_yolov8m_416_640px_segment_2_of_4_edgetpu.tflite', '166x_first_seg_yolov8m_416_640px_segment_3_of_4_edgetpu.tflite'],
-                 #   31.8 ms per inference
-                 6: ['2x_first_seg_yolov8m_416_640px_segment_0_of_5_edgetpu.tflite', '2x_first_seg_yolov8m_416_640px_segment_1_of_5_edgetpu.tflite', '2x_first_seg_yolov8m_416_640px_segment_2_of_5_edgetpu.tflite', '2x_first_seg_yolov8m_416_640px_segment_3_of_5_edgetpu.tflite', '2x_first_seg_yolov8m_416_640px_segment_4_of_5_edgetpu.tflite'],
-                 #   29.5 ms per inference
-                 7: ['all_segments_yolov8m_416_640px_segment_0_of_4_edgetpu.tflite', 'all_segments_yolov8m_416_640px_segment_1_of_4_edgetpu.tflite', 'all_segments_yolov8m_416_640px_segment_2_of_4_edgetpu.tflite', 'all_segments_yolov8m_416_640px_segment_3_of_4_edgetpu.tflite'],
-                 #   26.0 ms per inference
-                 8: ['all_segments_yolov8m_416_640px_segment_0_of_3_edgetpu.tflite', 'all_segments_yolov8m_416_640px_segment_1_of_3_edgetpu.tflite', 'all_segments_yolov8m_416_640px_segment_2_of_3_edgetpu.tflite'],
+                 4: ['2x_first_seg_yolov8m_416_640px_segment_0_of_2_edgetpu.tflite', '2x_first_seg_yolov8m_416_640px_segment_1_of_2_edgetpu.tflite'],
+                 5: ['3x_first_seg_yolov8m_416_640px_segment_0_of_2_edgetpu.tflite', '3x_first_seg_yolov8m_416_640px_segment_1_of_2_edgetpu.tflite'],
              },
              'yolov8l_416_640px': {
-                 #  169.6 ms per inference
+                 # 1053.4 ms per inference (0.9 FPS) for 1 TPUs using 1 segment
+                 #  155.1 ms per inference (6.4 FPS) for 2 TPUs using 2 segments
+                 #   98.1 ms per inference (10.2 FPS) for 3 TPUs using 2 segments
+                 #   78.3 ms per inference (12.8 FPS) for 4 TPUs using 2 segments
+                 #   61.4 ms per inference (16.3 FPS) for 5 TPUs using 2 segments
                  2: ['all_segments_yolov8l_416_640px_segment_0_of_2_edgetpu.tflite', 'all_segments_yolov8l_416_640px_segment_1_of_2_edgetpu.tflite'],
-                 #  115.8 ms per inference
                  3: ['15x_first_seg_yolov8l_416_640px_segment_0_of_2_edgetpu.tflite', '15x_first_seg_yolov8l_416_640px_segment_1_of_2_edgetpu.tflite'],
-                 #   89.7 ms per inference
                  4: ['all_segments_yolov8l_416_640px_segment_0_of_2_edgetpu.tflite', 'all_segments_yolov8l_416_640px_segment_1_of_2_edgetpu.tflite'],
-                 #   77.7 ms per inference
                  5: ['4x_first_seg_yolov8l_416_640px_segment_0_of_2_edgetpu.tflite', '4x_first_seg_yolov8l_416_640px_segment_1_of_2_edgetpu.tflite'],
-                 #   64.2 ms per inference
-                 6: ['15x_first_seg_yolov8l_416_640px_segment_0_of_2_edgetpu.tflite', '15x_first_seg_yolov8l_416_640px_segment_1_of_2_edgetpu.tflite'],
-                 #   57.3 ms per inference
-                 7: ['3x_first_seg_yolov8l_416_640px_segment_0_of_3_edgetpu.tflite', '3x_first_seg_yolov8l_416_640px_segment_1_of_3_edgetpu.tflite', '3x_first_seg_yolov8l_416_640px_segment_2_of_3_edgetpu.tflite'],
-                 #   52.2 ms per inference
-                 8: ['166x_first_seg_yolov8l_416_640px_segment_0_of_3_edgetpu.tflite', '166x_first_seg_yolov8l_416_640px_segment_1_of_3_edgetpu.tflite', '166x_first_seg_yolov8l_416_640px_segment_2_of_3_edgetpu.tflite'],
+             },
+             'yolov8s_640px': {
+                 #  541.0 ms per inference (1.8 FPS) for 1 TPUs using 1 segment
+                 #   83.7 ms per inference (11.9 FPS) for 2 TPUs using 2 segments
+                 #   54.1 ms per inference (18.5 FPS) for 3 TPUs using 3 segments
+                 #   40.8 ms per inference (24.5 FPS) for 4 TPUs using 3 segments
+                 #   32.9 ms per inference (30.4 FPS) for 5 TPUs using 3 segments
+                 2: ['15x_last_seg_yolov8s_640px_segment_0_of_2_edgetpu.tflite', '15x_last_seg_yolov8s_640px_segment_1_of_2_edgetpu.tflite'],
+                 3: ['all_segments_yolov8s_640px_segment_0_of_3_edgetpu.tflite', 'all_segments_yolov8s_640px_segment_1_of_3_edgetpu.tflite', 'all_segments_yolov8s_640px_segment_2_of_3_edgetpu.tflite'],
+                 4: ['all_segments_yolov8s_640px_segment_0_of_3_edgetpu.tflite', 'all_segments_yolov8s_640px_segment_1_of_3_edgetpu.tflite', 'all_segments_yolov8s_640px_segment_2_of_3_edgetpu.tflite'],
+                 5: ['all_segments_yolov8s_640px_segment_0_of_3_edgetpu.tflite', 'all_segments_yolov8s_640px_segment_1_of_3_edgetpu.tflite', 'all_segments_yolov8s_640px_segment_2_of_3_edgetpu.tflite'],
+             },
+             'yolov8m_640px': {
+                 #  353.8 ms per inference (2.8 FPS) for 1 TPUs using 1 segment
+                 #  165.9 ms per inference (6.0 FPS) for 2 TPUs using 2 segments
+                 #   95.4 ms per inference (10.5 FPS) for 3 TPUs using 2 segments
+                 #   71.9 ms per inference (13.9 FPS) for 4 TPUs using 2 segments
+                 #   56.6 ms per inference (17.7 FPS) for 5 TPUs using 2 segments
+                 2: ['all_segments_yolov8m_640px_segment_0_of_2_edgetpu.tflite', 'all_segments_yolov8m_640px_segment_1_of_2_edgetpu.tflite'],
+                 3: ['2x_first_seg_yolov8m_640px_segment_0_of_2_edgetpu.tflite', '2x_first_seg_yolov8m_640px_segment_1_of_2_edgetpu.tflite'],
+                 4: ['3x_first_seg_yolov8m_640px_segment_0_of_2_edgetpu.tflite', '3x_first_seg_yolov8m_640px_segment_1_of_2_edgetpu.tflite'],
+                 5: ['4x_first_seg_yolov8m_640px_segment_0_of_2_edgetpu.tflite', '4x_first_seg_yolov8m_640px_segment_1_of_2_edgetpu.tflite'],
+             },
+             'yolov8l_640px': {
+                 # 1517.3 ms per inference (0.7 FPS) for 1 TPUs using 1 segment
+                 #  389.8 ms per inference (2.6 FPS) for 2 TPUs using 2 segments
+                 #  206.5 ms per inference (4.8 FPS) for 3 TPUs using 2 segments
+                 #  149.0 ms per inference (6.7 FPS) for 4 TPUs using 2 segments
+                 #  132.4 ms per inference (7.6 FPS) for 5 TPUs using 2 segments
+                 2: ['15x_first_seg_yolov8l_640px_segment_0_of_2_edgetpu.tflite', '15x_first_seg_yolov8l_640px_segment_1_of_2_edgetpu.tflite'],
+                 3: ['15x_first_seg_yolov8l_640px_segment_0_of_2_edgetpu.tflite', '15x_first_seg_yolov8l_640px_segment_1_of_2_edgetpu.tflite'],
+                 4: ['2x_last_seg_yolov8l_640px_segment_0_of_2_edgetpu.tflite', '2x_last_seg_yolov8l_640px_segment_1_of_2_edgetpu.tflite'],
+                 5: ['2x_first_seg_yolov8l_640px_segment_0_of_2_edgetpu.tflite', '2x_first_seg_yolov8l_640px_segment_1_of_2_edgetpu.tflite'],
              },
              'ipcam-general-v8': {
-                 #   53.4 ms per inference
-                 2: ['2x_last_seg_ipcam-general-v8_segment_0_of_2_edgetpu.tflite', '2x_last_seg_ipcam-general-v8_segment_1_of_2_edgetpu.tflite'],
-                 #   24.3 ms per inference
-                 3: ['all_segments_ipcam-general-v8_segment_0_of_2_edgetpu.tflite', 'all_segments_ipcam-general-v8_segment_1_of_2_edgetpu.tflite'],
-                 #   19.9 ms per inference
-                 4: ['15x_first_seg_ipcam-general-v8_segment_0_of_3_edgetpu.tflite', '15x_first_seg_ipcam-general-v8_segment_1_of_3_edgetpu.tflite', '15x_first_seg_ipcam-general-v8_segment_2_of_3_edgetpu.tflite'],
-                 #   15.6 ms per inference
-                 5: ['15x_last_seg_ipcam-general-v8_segment_0_of_3_edgetpu.tflite', '15x_last_seg_ipcam-general-v8_segment_1_of_3_edgetpu.tflite', '15x_last_seg_ipcam-general-v8_segment_2_of_3_edgetpu.tflite'],
-                 #   15.2 ms per inference
-                 6: ['15x_last_seg_ipcam-general-v8_segment_0_of_3_edgetpu.tflite', '15x_last_seg_ipcam-general-v8_segment_1_of_3_edgetpu.tflite', '15x_last_seg_ipcam-general-v8_segment_2_of_3_edgetpu.tflite'],
-                 #   12.3 ms per inference
-                 7: ['15x_first_seg_ipcam-general-v8_segment_0_of_3_edgetpu.tflite', '15x_first_seg_ipcam-general-v8_segment_1_of_3_edgetpu.tflite', '15x_first_seg_ipcam-general-v8_segment_2_of_3_edgetpu.tflite'],
-                 #   10.9 ms per inference
-                 8: ['2x_last_seg_ipcam-general-v8_segment_0_of_3_edgetpu.tflite', '2x_last_seg_ipcam-general-v8_segment_1_of_3_edgetpu.tflite', '2x_last_seg_ipcam-general-v8_segment_2_of_3_edgetpu.tflite'],
+                 #  241.2 ms per inference (4.1 FPS) for 1 TPUs using 1 segment
+                 #   44.7 ms per inference (22.4 FPS) for 2 TPUs using 2 segments
+                 #   22.5 ms per inference (44.4 FPS) for 3 TPUs using 2 segments
+                 #   16.1 ms per inference (62.0 FPS) for 4 TPUs using 2 segments
+                 #   12.2 ms per inference (82.2 FPS) for 5 TPUs using 2 segments
+                 2: ['15x_last_seg_ipcam-general-v8_segment_0_of_2_edgetpu.tflite', '15x_last_seg_ipcam-general-v8_segment_1_of_2_edgetpu.tflite'],
+                 3: ['166x_first_seg_ipcam-general-v8_segment_0_of_2_edgetpu.tflite', '166x_first_seg_ipcam-general-v8_segment_1_of_2_edgetpu.tflite'],
+                 4: ['2x_first_seg_ipcam-general-v8_segment_0_of_2_edgetpu.tflite', '2x_first_seg_ipcam-general-v8_segment_1_of_2_edgetpu.tflite'],
+                 5: ['2x_first_seg_ipcam-general-v8_segment_0_of_2_edgetpu.tflite', '2x_first_seg_ipcam-general-v8_segment_1_of_2_edgetpu.tflite'],
+
              },
         }        
 
