@@ -2,7 +2,15 @@ import os
 import platform
 
 # Import CodeProject.AI SDK
-from codeproject_ai_sdk import ModuleOptions
+try:
+    from codeproject_ai_sdk import ModuleOptions
+except ImportError:
+    print("Unable to import CPAI SDK! Faking Options.")
+    class ModuleOptions:
+        module_path = ''
+
+        def getEnvVariable(env_name, env_def):
+            return env_def
 
 class Settings:
     def __init__(self, model_name: str, model_name_pattern: str, std_model_name: str, 

@@ -21,7 +21,11 @@ import time
 import logging
 import queue
 import math
-import cv2
+
+try:
+    import cv2
+except ImportError:
+    logging.info("Unable to import OpenCV in TPURunner.")
 
 import concurrent.futures
 from datetime import datetime
@@ -1165,12 +1169,13 @@ class TPURunner(object):
             fin_y = int(resamp_y)
 
         # Chop & resize image
-        if isinstance(image, np.array):
+        if isinstance(image_full, np.ndarray):
             if fin_x < i_width or fin_y < i_height:
                 image_full = cv2.resize(image_full, (fin_x, fin_y), interpolation=cv2.INTER_AREA)
             image = cv2.cvtColor(image_full, cv2.COLOR_BGR2RGB)
             img_h, img_w, _ = image.shape
         else:
+            image = image_full
             image.thumbnail((resamp_x, resamp_y), Image.LANCZOS)
             img_h, img_w = image.height, image.width
 
@@ -1196,7 +1201,7 @@ class TPURunner(object):
         for x_off in range(0, max(img_w - m_width, 0) + tiles_x, step_x):
             for y_off in range(0, max(img_h - m_height, 0) + tiles_y, step_y):
                 # Adjust contrast on a per-chunk basis; we will likely be quantizing the image during scaling
-                if isinstance(image, np.array):
+                if isinstance(image, np.ndarray):
                     cropped_arr = self._autocontrast_scale_np(image, (x_off, y_off,
                                                                       x_off + m_width,
                                                                       y_off + m_height))
