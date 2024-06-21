@@ -1,5 +1,7 @@
 #! Python3.8
 
+numpy>=1.16.0,<2.0            # Installing NumPy, the fundamental package for array computing with Python.
+
 # For Coral, we need Tensorflow (preferably TF-Lite) and the Coral library. The
 # last pre-built TF-Lite for macOS that supports Coral is for macOS 11 on Intel,
 # or macOS 12 on Apple silicon. However, TensorFlow does include TF-Lite (it's
@@ -23,7 +25,6 @@
 # --extra-index-url https://google-coral.github.io/py-repo/ 
 # pycoral~=2.0                # Installing PyCoral
 
-numpy>=1.16.0                 # Installing NumPy, the fundamental package for array computing with Python.
 Pillow>=4.0.0,<10.0           # Installing Pillow, a Python Image Library
 
 CodeProject-AI-SDK            # Installing the CodeProject.AI SDK
