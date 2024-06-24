@@ -13,6 +13,9 @@
     @goto:eof
 )
 
+REM Backwards compatibility with Server 2.6.5
+if "!utilsScript!" == "" if "!sdkScriptsDirPath!" NEQ "" set utilsScript=%sdkScriptsDirPath%\utils.bat
+
 REM Do this in requirements file. Otherwise we need the TFLite wheel too
 REM if "%pythonVersion%" == "3.7" (
 REM     set "wheel=https://github.com/google-coral/pycoral/releases/download/v2.0.0/pycoral-2.0.0-cp37-cp37m-win_amd64.whl"
