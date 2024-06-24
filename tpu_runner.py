@@ -571,9 +571,9 @@ class TPURunner(object):
         # We have a list of segment files
         if isinstance(options.tpu_segments_lists, dict):
             # Look for a good match between available TPUs and segment counts
-            # Prioritize first match. Note we have only tested up to 8 TPUs,
+            # Prioritize first match. Note we have only tested up to 6 TPUs,
             # so best performance above that can probably be had by extrapolation.
-            device_count = min(device_count, 8)
+            device_count = min(device_count, 6)
             if device_count in options.tpu_segments_lists:
                 seg_fnames = options.tpu_segments_lists[device_count]
                 for fn in seg_fnames:
