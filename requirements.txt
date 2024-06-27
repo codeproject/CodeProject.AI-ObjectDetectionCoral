@@ -1,6 +1,6 @@
 #! Python3.7
 
-numpy>=1.16.0,<2.0            # Installing NumPy, the fundamental package for array computing with Python.
+numpy==1.23                   # Installing NumPy, the fundamental package for array computing with Python.
 
 # tflite-runtime>=2.5.0       # Installing Tensorflow Lite
 https://github.com/google-coral/pycoral/releases/download/v2.0.0/tflite_runtime-2.5.0.post1-cp39-cp39-linux_x86_64.whl # Installing Tensorflow Lite
