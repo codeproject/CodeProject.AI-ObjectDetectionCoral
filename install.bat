@@ -2,7 +2,8 @@
 ::
 ::                         ObjectDetection (Coral)
 ::
-:: This script is only called from ..\..\CodeProject.AI-Server\src\setup.bat
+:: This script is only called from ..\..\CodeProject.AI-Server\src\setup.bat in
+:: Dev setup, or ..\..\src\setup.bat in production
 ::
 :: For help with install scripts, notes on variables and methods available, tips,
 :: and explanations, see CodeProject.AI-Server\src\modules\install_script_help.md
