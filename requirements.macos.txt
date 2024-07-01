@@ -1,6 +1,6 @@
 #! Python3.8
 
-numpy>=1.16.0,<2.0            # Installing NumPy, the fundamental package for array computing with Python.
+numpy==1.23                   # Installing NumPy, the fundamental package for array computing with Python.
 
 # For Coral, we need Tensorflow (preferably TF-Lite) and the Coral library. The
 # last pre-built TF-Lite for macOS that supports Coral is for macOS 11 on Intel,

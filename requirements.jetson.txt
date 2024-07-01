@@ -1,6 +1,6 @@
 #! Python3.8
 
-numpy>=1.16.0,<2.0            # Installing NumPy, the fundamental package for array computing with Python.
+numpy==1.23                   # Installing NumPy, the fundamental package for array computing with Python.
 
 --extra-index-url https://google-coral.github.io/py-repo/ 
 tflite-runtime==2.5.0.post1   # Installing Tensorflow Lite
