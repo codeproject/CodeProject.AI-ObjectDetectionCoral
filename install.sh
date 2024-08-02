@@ -50,12 +50,12 @@ if [ "${edgeDevice}" = "Raspberry Pi" ] || [ "${edgeDevice}" = "Orange Pi" ] || 
             checkForAdminAndWarn "$install_instructions"
             
             # We won't set an error because once the user runs this script everything else will work
-            # module_install_errors="Admin permissions are needed to install libraries"
+            # moduleInstallErrors="Admin permissions are needed to install libraries"
         fi
     fi
 
     if [ "$isAdmin" = true ] || [ "$attemptSudoWithoutAdminRights" = true ]; then
-        module_install_errors=""
+        moduleInstallErrors=""
         installAptPackages "libopenblas-dev libblas-dev m4 cmake cython python3-dev python3-yaml python3-setuptools"
 
         if [ "${edgeDevice}" = "Jetson" ]; then
@@ -161,7 +161,7 @@ elif [ "$os" = "macos" ]; then
     # brew install doesn't seem to be enough. Macports gets it right
     if ! command -v /opt/local/bin/port >/dev/null; then 
         writeLine "Please install Macports from https://www.macports.org/install.php before you run this script" "$color_error"
-        module_install_errors="Macports (https://www.macports.org/install.php) must be installed"
+        moduleInstallErrors="Macports (https://www.macports.org/install.php) must be installed"
     fi
 
     # Wouldn't this be nice! Except... to run port selfupdate you need to have an updated version of port.
@@ -173,10 +173,10 @@ elif [ "$os" = "macos" ]; then
     /opt/local/bin/port version 2>/dev/null
     if [ "$?" != "0" ]; then
         writeLine "Please update Macports (see https://www.macports.org/install.php)" "$color_error"
-        module_install_errors="Macports (https://www.macports.org/install.php) must be updated"
+        moduleInstallErrors="Macports (https://www.macports.org/install.php) must be updated"
     fi
 
-    if [ "$module_install_errors" == "" ]; then
+    if [ "$moduleInstallErrors" == "" ]; then
         # curl -LO https://github.com/google-coral/libedgetpu/releases/download/release-grouper/edgetpu_runtime_20221024.zip
         # We have modified the install.sh script in this zip so it forces the install of the throttled version
         getFromServer "libraries/" "edgetpu_runtime-20221024.zip" "edgetpu_runtime" "Downloading edge TPU runtime..."
@@ -228,7 +228,7 @@ elif [ "$os" = "macos" ]; then
     fi
 fi
 
-if [ "$module_install_errors" == "" ]; then
+if [ "$moduleInstallErrors" == "" ]; then
     # Download the full set of TFLite / edgeTPU models and store in /assets
     # getFromServer "models/" "objectdetect-coral-models.zip" "assets" "Downloading MobileNet models..."
 
@@ -257,5 +257,5 @@ if [ "$module_install_errors" == "" ]; then
     echo
 
     # TODO: Check assets created and has files
-    # module_install_errors=...
+    # moduleInstallErrors=...
 fi
