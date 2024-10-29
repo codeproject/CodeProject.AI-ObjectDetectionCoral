@@ -21,6 +21,7 @@ import time
 import logging
 import queue
 import math
+from numba import jit
 
 try:
     import cv2
@@ -912,7 +913,9 @@ class TPURunner(object):
         return ([boxes], [class_ids], [scores], [len(scores)])
 
 
-    def _xywh2xyxy(self, xywh):
+    @staticmethod
+    @jit(nopython=True, fastmath=True)
+    def _xywh2xyxy(xywh):
         # Convert nx4 boxes from [x, y, w, h] to [x1, y1, x2, y2] where xy1=top-left, xy2=bottom-right
         xyxy = np.copy(xywh)
         xyxy[:, 1] = xywh[:, 0] - xywh[:, 2] * 0.5  # top left x
@@ -921,8 +924,9 @@ class TPURunner(object):
         xyxy[:, 2] = xywh[:, 1] + xywh[:, 3] * 0.5  # bottom right y
         return xyxy
 
-    
-    def _nms(self, dets, scores, thresh):
+    @staticmethod
+    @jit(nopython=True, fastmath=True)
+    def _nms(dets, scores, thresh):
         '''
         dets is a numpy array : num_dets, 4
         scores is a numpy array : num_dets,
@@ -1202,26 +1206,23 @@ class TPURunner(object):
             for y_off in range(0, max(img_h - m_height, 0) + tiles_y, step_y):
                 # Adjust contrast on a per-chunk basis; we will likely be quantizing the image during scaling
                 if isinstance(image, np.ndarray):
-                    cropped_arr = self._autocontrast_scale_np(image, (x_off, y_off,
-                                                                      x_off + m_width,
-                                                                      y_off + m_height))
+                    cropped_arr, input_scale, input_zero \
+                        = self._autocontrast_scale_np(image, (x_off, y_off,
+                                                              x_off + m_width,
+                                                              y_off + m_height))
                 else:
-                    cropped_arr = self._pil_autocontrast_scale_np(image, (x_off, y_off,
-                                                                          x_off + m_width,
-                                                                          y_off + m_height))
+                    cropped_arr, input_scale, input_zero \
+                        = self._pil_autocontrast_scale_np(image, (x_off, y_off,
+                                                                  x_off + m_width,
+                                                                  y_off + m_height))
 
                 logging.debug("Resampled image tile {} at offset {}, {}".format(cropped_arr.shape, x_off, y_off))
                 resamp_info = (x_off, y_off, i_width/img_w, i_height/img_h)
 
-                # Cast and clip
-                tile_arr = np.zeros(cropped_arr.shape, dtype=self.input_details['dtype'])
                 dinfo = np.iinfo(self.input_details['dtype'])
-                np.clip(cropped_arr, dinfo.min, dinfo.max, out=tile_arr, casting='unsafe')
-
-                # Ensure this is the tensor-ready size
-                tile_height, tile_width, tile_c = tile_arr.shape
-                if tile_width != m_width or tile_height != m_height:
-                    tile_arr = np.pad(tile_arr, ((0, m_height - tile_height), (0, m_width - tile_width), (0, 0)))
+                tile_arr = np.empty((m_height, m_width, cropped_arr.shape[2]), dtype=dinfo.dtype)
+                self._jit_rescale_to_tensor(cropped_arr, input_scale, input_zero,
+                    dinfo.min, dinfo.max, tile_arr)
 
                 tiles.append((tile_arr, resamp_info))
 
@@ -1230,14 +1231,49 @@ class TPURunner(object):
         return tiles
 
 
+    @staticmethod
+    @jit(nopython=True, fastmath=True)
+    def _jit_rescale_to_tensor(cropped_arr, input_scale, input_zero, dinfo_min, dinfo_max, tile_arr):
+        # Image data in the upper left quad
+        for y in range(cropped_arr.shape[0]):
+            for x in range(cropped_arr.shape[1]):
+                for z in range(cropped_arr.shape[2]):
+                    cropped_val = cropped_arr[y,x,z] * input_scale + input_zero
+
+                    if cropped_val < dinfo_min:
+                        cropped_val = dinfo_min
+                    elif cropped_val > dinfo_max:
+                        cropped_val = dinfo_max
+
+                    tile_arr[y,x,z] = cropped_val
+
+        # Upper right quad padding
+        for y in range(cropped_arr.shape[0]):
+            for x in range(cropped_arr.shape[1], tile_arr.shape[1]):
+                for z in range(cropped_arr.shape[2]):
+                    tile_arr[y,x,z] = input_zero
+
+        # Lower left quad padding
+        for y in range(cropped_arr.shape[0], tile_arr.shape[0]):
+            for x in range(cropped_arr.shape[1]):
+                for z in range(cropped_arr.shape[2]):
+                    tile_arr[y,x,z] = input_zero
+
+        # Lower right quad padding
+        for y in range(cropped_arr.shape[0], tile_arr.shape[0]):
+            for x in range(cropped_arr.shape[1], tile_arr.shape[1]):
+                for z in range(cropped_arr.shape[2]):
+                    tile_arr[y,x,z] = input_zero
+
+
     def _pil_autocontrast_scale_np(self, image, crop_dim):
         image_chunk = ImageOps.autocontrast(image.crop(crop_dim), 1)
-        return np.asarray(image_chunk, np.float32) * self.input_scale + self.input_zero
+        return image_chunk, self.input_scale, self.input_zero
 
     def _autocontrast_scale_np(self, image, crop_dim):
         cropped_img = image[crop_dim[1]:crop_dim[3],crop_dim[0]:crop_dim[2]]
 
-        # Convert to gret for histogram
+        # Convert to grey for histogram
         gray = cv2.cvtColor(cropped_img, cv2.COLOR_RGB2GRAY)
     
         # Calculate grayscale histogram
@@ -1275,9 +1311,7 @@ class TPURunner(object):
         # - Reducing quantization error.
         # - Not clamping dynamic range to uint8 before scaling to the input tensor.
         # - Fewer operations per pixel.
-        return np.asarray(cropped_img, np.float32) \
-                  * (alpha * self.input_scale) \
-                  + (beta * self.input_scale + self.input_zero)
+        return cropped_img, (alpha * self.input_scale), (beta * self.input_scale + self.input_zero)
 
     
     def _get_tiles(self, options: Options, image: Image):
