@@ -21,7 +21,7 @@ class Settings:
         self.tpu_model_name     = tpu_model_name
         self.labels_name        = labels_name
 
-        # Tested on a HP ElietDesk G4 800 SFF i5-8500 3.0 GHz
+        # Tested on a HP EliteDesk G4 800 SFF i5-8500 3.0 GHz
         self.MODEL_SEGMENTS = {
              'tf2_ssd_mobilenet_v2_coco17_ptq': {
 #   6.6 ms/inference (151.1 FPS; 12.3 tensor MPx/sec) for 1 TPUs using 1 segments: tf2_ssd_mobilenet_v2_coco17_ptq
