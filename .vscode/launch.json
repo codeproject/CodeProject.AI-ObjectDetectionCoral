@@ -17,7 +17,6 @@
             "cwd": "${workspaceFolder}",
 
             "env": {
-                "DEBUG_IN_VSCODE": "True",
                 "RUNNING_IN_VSCODE": "True",
                 "CPAI_PORT": "32168",
                 "CPAI_MODULE_QUEUENAME": "objectdetection_queue",
