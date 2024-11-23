@@ -13,7 +13,7 @@
         "License": "Apache-2.0",
         "LicenseUrl": "https://opensource.org/licenses/Apache-2.0",
         "Author": "Chris Maunder, Seth Price",
-        "Homepage": "https://https://github.com/codeproject/CodeProject.AI-Server/",
+        "Homepage": "https://github.com/codeproject/CodeProject.AI-Server/",
         "BasedOn": "Coral.ai examples",
         "BasedOnUrl": "https://github.com/google-coral/pycoral/blob/master/examples/detect_image.py"
       },
