@@ -37,17 +37,66 @@
                 // "MODEL_SIZE": "Medium"
             },
 
-            "python": "${workspaceFolder}\\bin\\windows\\python39\\venv\\Scripts\\python.exe",
+            "python": "${workspaceFolder}/bin/windows/python39/venv/Scripts/python.exe",
             "windows": {
                 "python": "${workspaceFolder}/bin/windows/python39/venv/Scripts/python.exe"
             },
             "linux": {
-                // "python": "${workspaceFolder}/../../CodeProject.AI-Server/runtimes/bin/ubuntu/python39/venv/bin/python",
-                "python": "${workspaceFolder}/../../CodeProject.AI-Server/runtimes/bin/debian/python39/venv/bin/python",
+                // "python": "${workspaceFolder}/bin/ubuntu/python39/venv/bin/python",
+                "python": "${workspaceFolder}/bin/debian/python39/venv/bin/python",
+            },
+            "osx": {
+                "python": "${workspaceFolder}/bin/macos/python39/venv/bin/python",
+            }
+        },
+        {
+            "presentation": {
+                "group": "Start",
+                "hidden": false
+            },
+
+            "name": "Test Object Detection (Coral)",
+            "type": "debugpy",
+            "justMyCode": false,
+            "request": "launch",
+            "program": "objectdetection_coral_adapter.py",
+            "args": [ "--selftest" ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+
+            "env": {
+                "RUNNING_IN_VSCODE": "True",
+                "CPAI_PORT": "32168",
+                "CPAI_MODULE_QUEUENAME": "objectdetection_queue",
+
+                // Std settings
+                "CPAI_CORAL_MULTI_TPU": "true",
+                "CPAI_CORAL_MODEL_NAME": "MobileNet SSD", // "MobileNet SSD", "EfficientDet-Lite", "YOLOv5"
+                "MODEL_SIZE": "Small"
+
+                // YOLOv5 large (segmented model files)
+                // "CPAI_CORAL_MULTI_TPU": "true",
+                // "CPAI_CORAL_MODEL_NAME": "YOLOv5",
+                // "MODEL_SIZE": "Large"
+
+                // EfficientDet-Lite large (single model file)
+                // "CPAI_CORAL_MULTI_TPU": "true",
+                // "CPAI_CORAL_MODEL_NAME": "EfficientDet-Lite",
+                // "MODEL_SIZE": "Medium"
+            },
+
+            "python": "${workspaceFolder}/bin/windows/python39/venv/Scripts/python.exe",
+            "windows": {
+                "python": "${workspaceFolder}/bin/windows/python39/venv/Scripts/python.exe"
+            },
+            "linux": {
+                // "python": "${workspaceFolder}/bin/ubuntu/python39/venv/bin/python",
+                "python": "${workspaceFolder}/bin/debian/python39/venv/bin/python",
             },
             "osx": {
                 "python": "${workspaceFolder}/bin/macos/python39/venv/bin/python",
             }
         }
+
     ]
 }
