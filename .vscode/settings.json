@@ -3,6 +3,15 @@
     // "dotnet.server.trace":"Trace",
     
     "cSpell.words": [
+        "edgetpu",
+			"efficientdet",
+			"iinfo",
+			"LANCZOS",
+			"libedgetpu",
+			"mobilenet",
+			"paddlepaddle",
+			"pycoral",
+			"tflite",
         "aiohttp",
         "Alloc",
         "alpr",
