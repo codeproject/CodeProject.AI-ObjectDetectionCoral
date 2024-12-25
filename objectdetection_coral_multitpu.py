@@ -75,7 +75,7 @@ def list_models(options:Options):
     
     # HACK: If we can't get the TPU interpreter created then let's fall back to
     #       the non-edge library TPU / TFLite-CPU code
-    if not _tpu_runner or not _tpu_runner.pipeline_ok():
+    if not _tpu_runner or not _tpu_runner.pipeline_ok(options):
         logging.warning("No multi-TPU interpreters: Falling back to single-TPU/CPU listing")
         import objectdetection_coral_singletpu as odcs
         return odcs.list_models(options)
@@ -112,7 +112,7 @@ def do_detect(options: Options, image: Image, score_threshold: float = 0.5):
     
     # HACK: If we can't get the TPU interpreter created then let's fall back to
     #       the non-edge library TPU / TFLite-CPU code
-    if not _tpu_runner or not _tpu_runner.pipeline_ok():
+    if not _tpu_runner or not _tpu_runner.pipeline_ok(options):
         logging.warning("No multi-TPU interpreters: Falling back to single-TPU/CPU detection")
         import objectdetection_coral_singletpu as odcs
         if not odcs.interpreter_created:

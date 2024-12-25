@@ -775,7 +775,7 @@ class TPURunner(object):
         if self.pipe:
             self.pipe = None
 
-    def pipeline_ok(self) -> bool:
+    def pipeline_ok(self, options:Options) -> bool:
         """ Check we have valid interpreters """
         with self.runner_lock:
             self._periodic_check(options)

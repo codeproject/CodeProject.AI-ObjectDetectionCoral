@@ -74,6 +74,7 @@ inference_device    = None
 last_model_check    = None  # When were the models last checked?
 model_list          = None
 model_list_lock     = threading.Lock()
+inference_lock      = threading.Lock()
 
 from options import Options
 
@@ -320,41 +321,41 @@ def do_detect(options: Options, img: Image, score_threshold: float = 0.5):
     """
 
     # Run inference
-    start_inference_time = time.perf_counter()
-    try:
-        interpreter.invoke()
-    except Exception as ex:
-        return {
-            "success"     : False,
-            "count"       : 0,
-            "error"       : "Unable to run inference: " + str(ex),
-            "predictions" : [],
-            "inferenceMs" : 0
-        }
-
-    inferenceMs = int((time.perf_counter() - start_inference_time) * 1000)
-
-    # Get output
-    outputs = []
-    objs = detect.get_objects(interpreter, score_threshold, scale)
-    for obj in objs:
-        class_id = obj.id
-        caption  = labels.get(class_id, class_id)
-        score    = float(obj.score)
-        # ymin, xmin, ymax, xmax = obj.bbox
-        xmin, ymin, xmax, ymax = obj.bbox
-
-        if score >= score_threshold:
-            detection = {
-                "confidence": score,
-                "label": caption,
-                "x_min": xmin,
-                "y_min": ymin,
-                "x_max": xmax,
-                "y_max": ymax,
+    with inference_lock:
+        start_inference_time = time.perf_counter()
+        try:
+            interpreter.invoke()
+        except Exception as ex:
+            return {
+                "success"     : False,
+                "count"       : 0,
+                "error"       : "Unable to run inference: " + str(ex),
+                "predictions" : [],
+                "inferenceMs" : 0
             }
+        inferenceMs = int((time.perf_counter() - start_inference_time) * 1000)
 
-            outputs.append(detection)
+        # Get output
+        outputs = []
+        objs = detect.get_objects(interpreter, score_threshold, scale)
+        for obj in objs:
+            class_id = obj.id
+            caption  = labels.get(class_id, class_id)
+            score    = float(obj.score)
+            # ymin, xmin, ymax, xmax = obj.bbox
+            xmin, ymin, xmax, ymax = obj.bbox
+
+            if score >= score_threshold:
+                detection = {
+                    "confidence": score,
+                    "label": caption,
+                    "x_min": xmin,
+                    "y_min": ymin,
+                    "x_max": xmax,
+                    "y_max": ymax,
+                }
+
+                outputs.append(detection)
 
     return {
         "success"         : True,

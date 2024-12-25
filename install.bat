@@ -2,7 +2,8 @@
 ::
 ::                         ObjectDetection (Coral)
 ::
-:: This script is only called from ..\..\CodeProject.AI-Server\src\setup.bat
+:: This script is only called from ..\..\CodeProject.AI-Server\src\setup.bat in
+:: Dev setup, or ..\..\src\setup.bat in production
 ::
 :: For help with install scripts, notes on variables and methods available, tips,
 :: and explanations, see CodeProject.AI-Server\src\modules\install_script_help.md
@@ -12,6 +13,9 @@
     @pause
     @goto:eof
 )
+
+REM Backwards compatibility with Server 2.6.5
+if "!utilsScript!" == "" if "!sdkScriptsDirPath!" NEQ "" set utilsScript=%sdkScriptsDirPath%\utils.bat
 
 REM Do this in requirements file. Otherwise we need the TFLite wheel too
 REM if "%pythonVersion%" == "3.7" (

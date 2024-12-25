@@ -1,5 +1,7 @@
 #! Python3.8
 
+numpy==1.21.6                 # Installing NumPy, a package for scientific computing
+
 # Pillow-SIMD>=4.0.0          # Installing Pillow (SIMD), an optimised Python Image Library
 Pillow>=4.0.0                 # Installing Pillow, a Python Image Library
 
@@ -19,7 +21,6 @@ pycoral~=2.0                  # Installing PyCoral
 # tensorflow==2.10            # Installing Tensorflow
 
 # Coral example has numpy>=1.16.0, but this works
-numpy==1.21.6                 # Installing NumPy, a package for scientific computing
 
 CodeProject-AI-SDK            # Installing the CodeProject.AI SDK
 
