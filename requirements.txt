@@ -8,7 +8,8 @@ https://github.com/google-coral/pycoral/releases/download/v2.0.0/tflite_runtime-
 pycoral~=2.0                  # Installing PyCoral
 
 Pillow>=4.0.0,<10.0           # Installing Pillow, a Python Image Library
-
+opencv-python-headless        # Install OpenCV for highly optimized image resizing. Otherwise we'd need pillow-simd, which is much more tricky to get installed.
 CodeProject-AI-SDK            # Installing the CodeProject.AI SDK
+
 
 # last line empty
