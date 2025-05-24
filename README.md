@@ -1,6 +1,6 @@
 # ObjectDetection (Coral.AI) Module for CodeProject.AI Server
 
-This is an ObjectDetection module using the Google Coral.AI TPU for [CodeProject.AI Server](https://www.codeproject.com/Articles/5322557/CodeProject-AI-Server-AI-the-easy-way). The actual module itself is downloadable via the CodeProject.AI Server's dashboard.
+This is an ObjectDetection module using the Google Coral.AI TPU for [CodeProject.AI Server](https://github.com/codeproject/CodeProject.AI-Server). The actual module itself is downloadable via the CodeProject.AI Server's dashboard.
 
 ## To develop and debug this code
 
