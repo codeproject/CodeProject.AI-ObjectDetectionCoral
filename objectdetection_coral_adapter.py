@@ -179,13 +179,14 @@ class CoralObjectDetector_adapter(ModuleRunner):
             result = do_detect(opts, img, score_threshold)   
 
             if not result['success']:
+                error = result["error"] if "error" in result else "Unable to perform detection"
                 return {
                     "success"     : False,
-                    "error"       : result["error"] if "error" in result else "Unable to perform detection",
+                    "error"       : error,
                     "inferenceMs" : result['inferenceMs'],
                     "processMs"   : int((time.perf_counter() - start_process_time) * 1000),
                     "predictions" : [],
-                    "message"     : '',
+                    "message"     : error,
                     "count"       : 0
                 }
             
