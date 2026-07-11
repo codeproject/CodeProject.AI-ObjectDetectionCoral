@@ -270,58 +270,64 @@ def do_detect(options: Options, img: Image, score_threshold: float = 0.5):
     std   = 128 # args.input_std
     top_k = 1
 
-    # Once in a while refresh the interpreter
-    (device, error) = periodic_check(options)
-
-    if not interpreter:
-        return {
-            "success"     : False,
-            "error"       : error,
-            "count"       : 0,
-            "predictions" : [],
-            "inferenceMs" : 0
-        }
-
-    w,h = img.size
-    # print("Debug: Input(height, width): ", h, w)
-
-    _, scale = common.set_resized_input(
-        interpreter, img.size, lambda size: img.resize(size, Image.Resampling.LANCZOS))
-
-    """
-    size = common.input_size(interpreter)
-    resize_im = img.convert('RGB').resize(size, Image.ANTIALIAS)
-
-    # numpy_image = np.array(img)
-    # input_im = cv2.cvtColor(numpy_image, cv2.COLOR_BGR2RGB)
-    # resize_im = cv2.resize(input_im, size)
-
-    # Image data must go through two transforms before running inference:
-    #   1. normalization: f = (input - mean) / std
-    #   2. quantization: q = f / scale + zero_point
-    # The following code combines the two steps as such:
-    #   q = (input - mean) / (std * scale) + zero_point
-    # However, if std * scale equals 1, and mean - zero_point equals 0, the input
-    # does not need any preprocessing (but in practice, even if the results are
-    # very close to 1 and 0, it is probably okay to skip preprocessing for better
-    # efficiency; we use 1e-5 below instead of absolute zero).
-
-    params     = common.input_details(interpreter, 'quantization_parameters')
-    scale      = params['scales']
-    zero_point = params['zero_points']
-
-    if abs(scale * std - 1) < 1e-5 and abs(mean - zero_point) < 1e-5:
-        # Input data does not require preprocessing.
-        common.set_input(interpreter, resize_im)
-    else:
-        # Input data requires preprocessing
-        normalized_input = (np.asarray(resize_im) - mean) / (std * scale) + zero_point
-        np.clip(normalized_input, 0, 255, out=normalized_input)
-        common.set_input(interpreter, normalized_input.astype(np.uint8))
-    """
-
-    # Run inference
+    # The periodic (re)check/refresh of the interpreter, input setup, invoke and
+    # output extraction must all happen under the same lock: periodic_check can
+    # tear down and rebuild the shared `interpreter` (reset_detector/init_detect),
+    # and doing that concurrently with another thread's invoke()/get_objects() on
+    # the old interpreter corrupts its internal tensor buffers ("There is at least
+    # 1 reference to internal data in the interpreter..." from TF-Lite).
     with inference_lock:
+        # Once in a while refresh the interpreter
+        (device, error) = periodic_check(options)
+
+        if not interpreter:
+            return {
+                "success"     : False,
+                "error"       : error,
+                "count"       : 0,
+                "predictions" : [],
+                "inferenceMs" : 0
+            }
+
+        w,h = img.size
+        # print("Debug: Input(height, width): ", h, w)
+
+        _, scale = common.set_resized_input(
+            interpreter, img.size, lambda size: img.resize(size, Image.Resampling.LANCZOS))
+
+        """
+        size = common.input_size(interpreter)
+        resize_im = img.convert('RGB').resize(size, Image.ANTIALIAS)
+
+        # numpy_image = np.array(img)
+        # input_im = cv2.cvtColor(numpy_image, cv2.COLOR_BGR2RGB)
+        # resize_im = cv2.resize(input_im, size)
+
+        # Image data must go through two transforms before running inference:
+        #   1. normalization: f = (input - mean) / std
+        #   2. quantization: q = f / scale + zero_point
+        # The following code combines the two steps as such:
+        #   q = (input - mean) / (std * scale) + zero_point
+        # However, if std * scale equals 1, and mean - zero_point equals 0, the input
+        # does not need any preprocessing (but in practice, even if the results are
+        # very close to 1 and 0, it is probably okay to skip preprocessing for better
+        # efficiency; we use 1e-5 below instead of absolute zero).
+
+        params     = common.input_details(interpreter, 'quantization_parameters')
+        scale      = params['scales']
+        zero_point = params['zero_points']
+
+        if abs(scale * std - 1) < 1e-5 and abs(mean - zero_point) < 1e-5:
+            # Input data does not require preprocessing.
+            common.set_input(interpreter, resize_im)
+        else:
+            # Input data requires preprocessing
+            normalized_input = (np.asarray(resize_im) - mean) / (std * scale) + zero_point
+            np.clip(normalized_input, 0, 255, out=normalized_input)
+            common.set_input(interpreter, normalized_input.astype(np.uint8))
+        """
+
+        # Run inference
         start_inference_time = time.perf_counter()
         try:
             interpreter.invoke()

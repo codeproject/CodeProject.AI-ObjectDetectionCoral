@@ -25,7 +25,7 @@
         "RuntimeLocation": "Local",       // Can be Local, Shared or System
         "PostStartPauseSecs": 1,          // Generally 1 if using GPU, 0 for CPU
         "Queue": "objectdetection_queue", // We make all Object detectors use the same queue.
-        "Parallelism": 16                 // Should probably be TPU count * 2; I don't see harm in overprovisioning threads
+        "Parallelism": 2                  // Should probably be TPU count * 2; I don't see harm in overprovisioning threads
       },
 
       "ModelRequirements" : [{
